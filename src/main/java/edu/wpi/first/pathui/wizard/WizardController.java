@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-import static edu.wpi.first.pathui.wizard.WizardController.Panes.StartScene;
+import static edu.wpi.first.pathui.wizard.WizardController.Panes.NewProjectSave;
 
 public class WizardController {
 
@@ -26,12 +26,6 @@ public class WizardController {
 
   @FXML
   private Button help;
-
-  @FXML
-  private Pane startScreen;
-
-  @FXML
-  private Pane loadProject;
 
   @FXML
   private Pane newProjectSave;
@@ -56,8 +50,6 @@ public class WizardController {
 
 
   public enum Panes {
-    StartScene,
-    LoadProject,
     NewProjectSave,
     FieldCreator,
     FieldEditor,
@@ -70,7 +62,7 @@ public class WizardController {
   }
 
 
-  private Panes currentPane = StartScene;
+  private Panes currentPane = NewProjectSave;
 
   private Stack<Panes> previousPanes = new Stack<Panes>();
 
@@ -81,7 +73,7 @@ public class WizardController {
   private void initialize() {
     setupPanes();
     goToPane(currentPane);
-    currentController = new StartSceneController();
+    currentController = new NewProjectSaveController();
   }
 
   @FXML
@@ -114,25 +106,11 @@ public class WizardController {
   void goToPane(Panes pane) {
     System.out.println("going to " + pane);
     switch (pane) {
-      case StartScene:
-        topPane.getChildren().setAll(startScreen);
-        startScreen.visibleProperty().setValue(true);
-        currentController = new StartSceneController();
-        previous.disableProperty().setValue(true);
-        break;
-
-      case LoadProject:
-        topPane.getChildren().setAll(loadProject);
-        loadProject.visibleProperty().setValue(true);
-        currentController = new LoadProjectController();
-        previous.disableProperty().setValue(false);
-        break;
-
       case NewProjectSave:
         topPane.getChildren().setAll(newProjectSave);
         newProjectSave.visibleProperty().setValue(true);
         currentController = new NewProjectSaveController();
-        previous.disableProperty().setValue(false);
+        previous.disableProperty().setValue(true);
         break;
 
       case FieldCreator:
@@ -181,9 +159,7 @@ public class WizardController {
   }
 
   void setupPanes() {
-    startScreen.visibleProperty().setValue(false);
-    loadProject.visibleProperty().setValue(false);
-    newProjectSave.visibleProperty().setValue(false);
+    newProjectSave.visibleProperty().setValue(true);
     fieldCreator.visibleProperty().setValue(false);
     loadField.visibleProperty().setValue(false);
     imageSelector.visibleProperty().setValue(false);
